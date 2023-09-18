@@ -1,0 +1,58 @@
+{% extends 'Home.html' %}
+
+{% load static %}
+
+{% block body %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SBI</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<h3 align="center" >Please fill in this form to create an account</h3>
+
+
+<form method="post" action="{% url 'submit' %}" id="personForm" data-branches-url="{% url 'ajax_load_branches' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+
+    <div class="button-container" style="background-color:#f1f1f1">
+        <button type="submit" value="submit" class="cancelbtn" > Submit</button>
+        <a type="submit" class="signupbtn" href="{% url 'index' %}"> Logout</a>
+    </div>
+</form>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_district").change(function ()
+     {
+        const url = $("#personForm").attr("data-branches-url");  // get the url of the `load_branches` view
+        const districtId = $(this).val();  // get the selected district ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'district_id': districtId       // add the district id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_branches` view function
+                $("#id_branch").html(data);  // replace the contents of the city input with the data that came from the server
+
+            }
+        });
+
+    });
+</script>
+{% endblock %}
+</body>
+</html>
+
+
+
+
+
+

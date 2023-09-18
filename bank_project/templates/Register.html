@@ -1,0 +1,30 @@
+{% extends 'Home.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<form action=""   method="post">
+    {% csrf_token %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <div class="container">
+        <h1>Register</h1>
+        <p>Please register your account.</p>
+        <hr>
+
+        <label ><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname"><br>
+
+        <label ><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw"><br>
+
+        <label><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Password" name="psw-repeat"><br>
+
+        <div class="button-container">
+            <button type="submit" class="cancelbtn">Submit</button>
+        </div>
+ </form>
+
+{% endblock %}
